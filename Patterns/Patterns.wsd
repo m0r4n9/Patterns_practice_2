@@ -1,0 +1,66 @@
+'Patterns
+
+@startuml
+
+abstract class Task {
+    +name: string
+    +Task(name: string)
+    +AddTask(task: Task): void
+    +RemoveTask(task: Task): void
+    +Assign(): void
+    +Complete(): void
+}
+
+class DevelopmentTask {
+    +DevelopmentTask(name: string)
+    +AddTask(task: Task): void
+    +RemoveTask(task: Task): void
+    +Assign(): void
+    +Complete(): void
+}
+
+class TestingTask {
+    +TestingTask(name: string)
+    +AddTask(task: Task): void
+    +RemoveTask(task: Task): void
+    +Assign(): void
+    +Complete(): void
+}
+
+class DesignTask {
+    +DesignTask(name: string)
+    +AddTask(task: Task): void
+    +RemoveTask(task: Task): void
+    +Assign(): void
+    +Complete(): void
+}
+
+interface ITaskState {
+    +ProcessTask(): void
+}
+
+class NewState {
+    +ProcessTask(): void
+}
+
+class InProgressState {
+    +ProcessTask(): void
+}
+
+class CompletedState {
+    +ProcessTask(): void
+}
+
+Task <|-- DevelopmentTask
+Task <|-- TestingTask
+Task <|-- DesignTask
+
+ITaskState <|.. NewState
+ITaskState <|.. InProgressState
+ITaskState <|.. CompletedState
+
+DevelopmentTask o-- ITaskState
+TestingTask o-- ITaskState
+DesignTask o-- ITaskState
+
+@enduml
