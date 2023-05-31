@@ -1,0 +1,15 @@
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/bin/Debug/net7.0/Patterns
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/bin/Debug/net7.0/Patterns.deps.json
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/bin/Debug/net7.0/Patterns.runtimeconfig.json
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/bin/Debug/net7.0/Patterns.dll
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/bin/Debug/net7.0/Patterns.pdb
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.csproj.AssemblyReference.cache
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.AssemblyInfoInputs.cache
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.AssemblyInfo.cs
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.csproj.CoreCompileInputs.cache
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.dll
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/refint/Patterns.dll
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.pdb
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/Patterns.genruntimeconfig.cache
+/Users/sashasevostyanov/RiderProjects/Patterns/Patterns/obj/Debug/net7.0/ref/Patterns.dll
