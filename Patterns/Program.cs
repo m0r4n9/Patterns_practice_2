@@ -38,19 +38,26 @@ namespace Patterns
     abstract class Task
     {
         protected string name;
+        protected ITaskState state;
 
         public Task(string name)
         {
             this.name = name;
+            state = new NewState();
         }
 
         public abstract void AddTask(Task task);
         public abstract void RemoveTask(Task task);
         public abstract void Assign();
         public abstract void Complete();
+
+        public void ChangeState(ITaskState newState)
+        {
+            state = newState;
+        }
     }
 
-// Листовой компонент - задача на разработку
+    // Листовой компонент - задача на разработку
     class DevelopmentTask : Task
     {
         public DevelopmentTask(string name) : base(name)
@@ -69,16 +76,20 @@ namespace Patterns
 
         public override void Assign()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на разработку '{name}' назначена разработчику");
+            ChangeState(new InProgressState());
         }
 
         public override void Complete()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на разработку '{name}' завершена");
+            ChangeState(new CompletedState());
         }
     }
 
-// Листовой компонент - задача на тестирование
+    // Листовой компонент - задача на тестирование
     class TestingTask : Task
     {
         public TestingTask(string name) : base(name)
@@ -97,16 +108,20 @@ namespace Patterns
 
         public override void Assign()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на тестирование '{name}' назначена тестировщику");
+            ChangeState(new InProgressState());
         }
 
         public override void Complete()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на тестирование '{name}' завершена");
+            ChangeState(new CompletedState());
         }
     }
 
-// Листовой компонент - задача на дизайн
+    // Листовой компонент - задача на дизайн
     class DesignTask : Task
     {
         public DesignTask(string name) : base(name)
@@ -125,22 +140,26 @@ namespace Patterns
 
         public override void Assign()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на дизайн '{name}' назначена дизайнеру");
+            ChangeState(new InProgressState());
         }
 
         public override void Complete()
         {
+            state.ProcessTask();
             Console.WriteLine($"Задача на дизайн '{name}' завершена");
+            ChangeState(new CompletedState());
         }
     }
 
-// Интерфейс состояния задачи
+    // Интерфейс состояния задачи
     interface ITaskState
     {
         void ProcessTask();
     }
 
-// Состояние - новая задача
+    // Состояние - новая задача
     class NewState : ITaskState
     {
         public void ProcessTask()
@@ -149,7 +168,7 @@ namespace Patterns
         }
     }
 
-// Состояние - задача в работе
+    // Состояние - задача в работе
     class InProgressState : ITaskState
     {
         public void ProcessTask()
@@ -158,7 +177,7 @@ namespace Patterns
         }
     }
 
-// Состояние - завершенная задача
+    // Состояние - завершенная задача
     class CompletedState : ITaskState
     {
         public void ProcessTask()
