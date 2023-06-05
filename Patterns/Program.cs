@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Patterns
 {
@@ -7,30 +8,26 @@ namespace Patterns
         static void Main(string[] args)
         {
             // Создание иерархии задач
-            Task projectTask = new DevelopmentTask("Разработка проекта");
+            CompositeTask projectTask = new CompositeTask("Разработка проекта");
             Task featureTask1 = new DevelopmentTask("Реализация функции 1");
             Task featureTask2 = new DevelopmentTask("Реализация функции 2");
 
             projectTask.AddTask(featureTask1);
             projectTask.AddTask(featureTask2);
 
-            Task testingTask = new TestingTask("Тестирование проекта");
+            CompositeTask testingTask = new CompositeTask("Тестирование проекта");
+            testingTask.AddTask(new TestingTask("Тестирование функции 1"));
+            testingTask.AddTask(new TestingTask("Тестирование функции 2"));
             projectTask.AddTask(testingTask);
 
-            Task designTask = new DesignTask("Дизайн проекта");
+            CompositeTask designTask = new CompositeTask("Дизайн проекта");
+            designTask.AddTask(new DesignTask("Дизайн функции 1"));
+            designTask.AddTask(new DesignTask("Дизайн функции 2"));
             projectTask.AddTask(designTask);
 
             // Назначение и выполнение задач
             projectTask.Assign();
-            featureTask1.Assign();
-            featureTask2.Assign();
-            testingTask.Assign();
-            designTask.Assign();
-
-            featureTask1.Complete();
-            featureTask2.Complete();
-            testingTask.Complete();
-            designTask.Complete();
+            projectTask.Complete();
         }
     }
 
@@ -46,8 +43,6 @@ namespace Patterns
             state = new NewState();
         }
 
-        public abstract void AddTask(Task task);
-        public abstract void RemoveTask(Task task);
         public abstract void Assign();
         public abstract void Complete();
 
@@ -57,21 +52,53 @@ namespace Patterns
         }
     }
 
+    // Компонент-контейнер - составная задача
+    class CompositeTask : Task
+    {
+        private List<Task> subtasks;
+
+        public CompositeTask(string name) : base(name)
+        {
+            subtasks = new List<Task>();
+        }
+
+        public void AddTask(Task task)
+        {
+            subtasks.Add(task);
+        }
+
+        public void RemoveTask(Task task)
+        {
+            subtasks.Remove(task);
+        }
+
+        public override void Assign()
+        {
+            state.ProcessTask();
+            Console.WriteLine($"Задача '{name}' назначена");
+            foreach (Task task in subtasks)
+            {
+                task.Assign();
+            }
+        }
+
+        public override void Complete()
+        {
+            state.ProcessTask();
+            Console.WriteLine($"Задача '{name}' завершена");
+            foreach (Task task in subtasks)
+            {
+                task.Complete();
+            }
+            ChangeState(new CompletedState());
+        }
+    }
+
     // Листовой компонент - задача на разработку
     class DevelopmentTask : Task
     {
         public DevelopmentTask(string name) : base(name)
         {
-        }
-
-        public override void AddTask(Task task)
-        {
-            Console.WriteLine("Невозможно добавить задачу в задачу на разработку");
-        }
-
-        public override void RemoveTask(Task task)
-        {
-            Console.WriteLine("Невозможно удалить задачу из задачи на разработку");
         }
 
         public override void Assign()
@@ -96,16 +123,6 @@ namespace Patterns
         {
         }
 
-        public override void AddTask(Task task)
-        {
-            Console.WriteLine("Невозможно добавить задачу в задачу на тестирование");
-        }
-
-        public override void RemoveTask(Task task)
-        {
-            Console.WriteLine("Невозможно удалить задачу из задачи на тестирование");
-        }
-
         public override void Assign()
         {
             state.ProcessTask();
@@ -126,16 +143,6 @@ namespace Patterns
     {
         public DesignTask(string name) : base(name)
         {
-        }
-
-        public override void AddTask(Task task)
-        {
-            Console.WriteLine("Невозможно добавить задачу в задачу на дизайн");
-        }
-
-        public override void RemoveTask(Task task)
-        {
-            Console.WriteLine("Невозможно удалить задачу из задачи на дизайн");
         }
 
         public override void Assign()
