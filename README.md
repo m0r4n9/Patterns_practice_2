@@ -31,5 +31,6 @@
 Оба этих паттерна помогают достичь гибкости и расширяемости код
 
 ## UML программы
-![image](https://github.com/m0r4n9/Patterns_practice_2/assets/112942681/c3d0f02f-836f-45bf-a206-da54edcc4251)
+![image](https://github.com/m0r4n9/Patterns_practice_2/assets/112942681/30636a2e-b0e6-4cea-99bb-35165dd70ee9)
+
 
