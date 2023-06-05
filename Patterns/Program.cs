@@ -34,8 +34,8 @@ namespace Patterns
     // Компонент - задача
     abstract class Task
     {
-        protected string name;
-        protected ITaskState state;
+        public string name;
+        public ITaskState state;
 
         public Task(string name)
         {
@@ -56,6 +56,7 @@ namespace Patterns
     class CompositeTask : Task
     {
         private List<Task> subtasks;
+        private bool allSubtasksCompleted; 
 
         public CompositeTask(string name) : base(name)
         {
@@ -90,7 +91,25 @@ namespace Patterns
             {
                 task.Complete();
             }
-            ChangeState(new CompletedState());
+
+            if (CheckAllSubtasksCompleted())
+            {
+                ChangeState(new CompletedState());
+            }
+        }
+
+        private bool CheckAllSubtasksCompleted()
+        {
+            foreach (Task task in subtasks)
+            {
+                if (!(task is CompositeTask) && !(task.state is CompletedState))
+                {
+                    Console.WriteLine($"Подзадача '{task.name}' не выполнена");
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
@@ -184,7 +203,7 @@ namespace Patterns
         }
     }
 
-    // Состояние - завершенная задача
+// Состояние - завершенная задача
     class CompletedState : ITaskState
     {
         public void ProcessTask()
